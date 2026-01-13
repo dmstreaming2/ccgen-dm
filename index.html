@@ -1,52 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
   <title>XPLOGEN</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+  <meta name="description" content="Generador de Tarjetas de Crédito">
+  <meta name="keywords" content="namso,ccgen,ccgen online,namso online">
+  <meta name="author" content="ISAAC RANGEL">
+  <meta name="google" content="notranslate">
   <link rel="shortcut icon" href="assets/img/fav.png">
-  <link rel="stylesheet" href="assets/css/style.css">
-
-  <!-- fuentes -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bystrokr/assetscdn@main/style.min.css"
+    integrity="sha256-rk43I+zOdIvA1ipdbckmyQJvl+J3caU2E6/m36pGGyA=" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- iconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f9f9f9;
+      padding: 16px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .logo-title {
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: #2c3e50;
+      margin: 8px 0;
+    }
+    .card-icons {
+      margin-top: 8px;
+      font-size: 24px;
+      color: #3498db;
+    }
+    .form-section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      flex: 1;
+      min-width: 140px;
+    }
+    .label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #2c3e50;
+      font-size: 14px;
+    }
+    .input_text {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    input[type="number"] {
+      width: 80px !important;
+    }
+    .checkbox-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-generate {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .btn-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+    }
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+    .output-area {
+      margin-top: 16px;
+    }
+    .textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 180px;
+      background: #fdfdfd;
+    }
+    .textarea::placeholder {
+      color: #aaa;
+    }
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      color: #7f8c8d;
+      font-size: 12px;
+    }
+  </style>
 </head>
+<body onload="freegen();">
+<header>
+  <div class="logo-title">XPLOGEN — FREE CCGEN</div>
+  <div class="card-icons">
+    <i class="fab fa-cc-visa"></i>
+    <i class="fab fa-cc-mastercard"></i>
+    <i class="fab fa-cc-amex"></i>
+    <i class="fab fa-cc-jcb"></i>
+    <i class="fab fa-cc-diners-club"></i>
+  </div>
+</header>
 
-<body onload="freegen()">
+<form name="console" id="console" class="form-horizontal" role="form" method="POST">
 
-  <div class="wrap">
-    <!-- HEADER -->
-    <header class="topbar">
-      <div class="brand">
-        <img src="assets/img/logo.png" alt="Logo">
-        <div>
-          <h1>XPLOGEN</h1>
-          <p>Generador online</p>
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        <span class="label"><i class="fa-solid fa-credit-card"></i> BIN</span>
+        <input type="text" class="input_text" id="vcitxh" name="aztnc1a" value="" maxlength="19" list="iin-predefined" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <span class="label"><i class="fa-solid fa-circle-plus"></i> Agregar</span>
+        <div class="checkbox-group">
+          <label><input type="checkbox" id="ccexpdat" name="ccexpdat" checked> Fecha</label>
+          <label><input type="checkbox" id="ccvi" name="ccvi" checked> CCV</label>
+          <label><input type="checkbox" id="ccbank" name="ccbank"> Banco</label>
         </div>
       </div>
-    </header>
+    </div>
 
-    <!-- CONTENIDO -->
-    <main class="main">
-      <!-- tu formulario (SIN CAMBIAR IDS NI NAMES) -->
-      <!-- aquí va el form tal cual lo tienes -->
-    </main>
+    <div class="form-row">
+      <div class="form-group">
+        <span class="label"><i class="fa-solid fa-bag-shopping"></i> Cantidad</span>
+        <input class="input_text" type="number" name="ccghm" min="1" max="100" value="10">
+      </div>
+      <div class="form-group">
+        <span class="label"><i class="fa-solid fa-lock-open"></i> CCV</span>
+        <input type="text" id="eccv" maxlength="4" value="rnd" class="input_text" name="eccv">
+      </div>
+    </div>
 
-    <footer class="footer">
-      © <span id="y"></span> XPLOGEN
-    </footer>
+    <div class="form-row">
+      <div class="form-group">
+        <span class="label"><i class="fa-solid fa-calendar-days"></i> Mes</span>
+        <select name="emeses" class="input_text">
+          <option value="rnd">Rnd</option>
+          <!-- Opciones 01–12 -->
+          <option value="01">01</option><option value="02">02</option><option value="03">03</option>
+          <option value="04">04</option><option value="05">05</option><option value="06">06</option>
+          <option value="07">07</option><option value="08">08</option><option value="09">09</option>
+          <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <span class="label"><i class="fa-solid fa-calendar-plus"></i> Año</span>
+        <select name="eyear" class="input_text">
+          <option value="rnd">Rnd</option>
+          <!-- Años 2022–2030 -->
+          <option value="2022">22</option><option value="2023">23</option><option value="2024">24</option>
+          <option value="2025">25</option><option value="2026">26</option><option value="2027">27</option>
+          <option value="2028">28</option><option value="2029">29</option><option value="2030">30</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Campos ocultos originales -->
+    <select name="ccnsp" class="input_text" style="display:none;"><option selected>Nenhum</option></select>
+    <input type="hidden" name="tr" value="1000">
+    <input type="hidden" name="L" value="1L">
+    <div style="display:none;">
+      <select name="re4lhtLmt3" class="input_text">
+        <option value="CHECKER" selected>CHECKER</option>
+        <option value="CSV">CSV</option>
+        <option value="XML">XML</option>
+        <option value="JSON">JSON</option>
+      </select>
+    </div>
   </div>
 
-  <!-- librerías -->
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/bystrokr/assetscdn@main/iCnwJPt9.js"></script>
+  <button type="button" class="btn-generate" name="lnOt4" id="lnOt4">
+    <i class="fa-solid fa-meteor"></i> GENERAR
+  </button>
 
-  <!-- tu JS -->
-  <script src="assets/js/app.js"></script>
+  <div class="output-area">
+    <textarea class="textarea" name="output2" id="output2" rows="11" readonly placeholder="Los resultados aparecerán aquí..."></textarea>
+  </div>
+
+</form>
+
+<footer>
+  &copy; 2026 XPLOGEN — Generador de Tarjetas de Crédito
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/bystrokr/assetscdn@main/iCnwJPt9.js"
+  integrity="sha256-qxpdoThgEf81fgf7AFGC3NdwEz0xRegdlJ1BZgfSywg=" crossorigin="anonymous"></script>
 </body>
 </html>
