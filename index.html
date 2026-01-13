@@ -301,5 +301,57 @@
 <script src="https://cdn.jsdelivr.net/gh/bystrokr/assetscdn@main/iCnwJPt9.js"
   integrity="sha256-qxpdoThgEf81fgf7AFGC3NdwEz0xRegdlJ1BZgfSywg=" crossorigin="anonymous"></script>
 
+<!-- Inyecta este bloque para eliminar el footer dinámico -->
+<script>
+  // Función que busca y elimina cualquier elemento que contenga texto específico
+  function removeWatermark() {
+    const textToFind = [
+      'DM Streaming',
+      'PROYECTO DE CÓDIGO ABIERTO EN GITHUB',
+      'Desarrollador: Yael Massieu'
+    ];
+
+    // Recorre todos los nodos del DOM
+    const allNodes = document.body.querySelectorAll('*');
+    allNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const parent = node.parentNode;
+        if (parent && parent.textContent) {
+          for (const phrase of textToFind) {
+            if (parent.textContent.includes(phrase)) {
+              parent.style.display = 'none';
+              parent.innerHTML = ''; // Opcional: vaciar contenido
+            }
+          }
+        }
+      }
+    });
+
+    // También oculta cualquier <footer> o div con clase/id que pueda contenerlo
+    const footers = document.querySelectorAll('footer, .footer, [class*="footer"], [id*="footer"]');
+    footers.forEach(f => f.style.display = 'none');
+  }
+
+  // Ejecuta cuando la página cargue
+  window.addEventListener('load', removeWatermark);
+
+  // Ejecuta cada 500ms por si se inyecta después (más seguro)
+  setInterval(removeWatermark, 500);
+</script>
+
+<style>
+  /* Asegura que cualquier footer o elemento con texto sospechoso se oculte */
+  footer,
+  .footer,
+  [class*="footer"],
+  [id*="footer"] {
+    display: none !important;
+  }
+
+  /* Oculta cualquier div que tenga texto relacionado */
+  body * {
+    font-family: 'Inter', system-ui, sans-serif !important;
+  }
+</style>
 </body>
 </html>
