@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>XPLOGEN</title>
+  <title>DM Streaming</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
   <meta name="description" content="Generador de Tarjetas de Crédito">
@@ -9,71 +9,95 @@
   <meta name="author" content="ISAAC RANGEL">
   <meta name="google" content="notranslate">
   <link rel="shortcut icon" href="assets/img/fav.png">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bystrokr/assetscdn@main/style.min.css"
-    integrity="sha256-rk43I+zOdIvA1ipdbckmyQJvl+J3caU2E6/m36pGGyA=" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: #f9f9f9;
-      padding: 16px;
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0f0f1b;
+      color: #e0e0ff;
+      padding: 20px;
+      min-height: 100vh;
     }
     header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
-    .logo-title {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 700;
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .logo-container img {
+      height: 48px;
+      filter: drop-shadow(0 0 8px rgba(52, 152, 219, 0.6));
+    }
+    .title {
       font-size: 28px;
-      color: #2c3e50;
-      margin: 8px 0;
+      font-weight: 700;
+      background: linear-gradient(90deg, #3498db, #8e44ad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #a0a0d0;
+      margin-top: 8px;
     }
     .card-icons {
-      margin-top: 8px;
+      margin-top: 10px;
       font-size: 24px;
       color: #3498db;
     }
-    .form-section {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #151528;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+                  inset 0 0 10px rgba(52, 152, 219, 0.1);
+      border: 1px solid #2a2a4a;
     }
     .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .form-group {
-      flex: 1;
-      min-width: 140px;
+      margin-bottom: 20px;
     }
     .label {
       display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #2c3e50;
       font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #c0c0ff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .input_text {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      padding: 10px 12px;
+      background: #1e1e30;
+      border: 1px solid #3a3a5a;
+      border-radius: 8px;
+      color: #ffffff;
       font-size: 14px;
-      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s;
     }
-    input[type="number"] {
-      width: 80px !important;
+    .input_text:focus {
+      border-color: #3498db;
     }
     .checkbox-group {
       display: flex;
@@ -86,55 +110,71 @@
       gap: 6px;
       font-weight: 500;
       cursor: pointer;
+      color: #d0d0ff;
+    }
+    .checkbox-group input[type="checkbox"] {
+      accent-color: #3498db;
     }
     .btn-generate {
       width: 100%;
       padding: 14px;
       background: linear-gradient(135deg, #3498db, #2980b9);
       color: white;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 18px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+      letter-spacing: 0.5px;
     }
     .btn-generate:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 16px rgba(52, 152, 219, 0.6);
     }
     .btn-generate:active {
       transform: translateY(0);
     }
     .output-area {
-      margin-top: 16px;
+      margin-top: 24px;
     }
     .textarea {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-family: monospace;
+      padding: 16px;
+      background: #0d0d1a;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      color: #4ade80;
+      font-family: 'Courier New', monospace;
       font-size: 14px;
       resize: vertical;
       min-height: 180px;
-      background: #fdfdfd;
+      outline: none;
     }
     .textarea::placeholder {
-      color: #aaa;
+      color: #444466;
     }
     footer {
       text-align: center;
-      margin-top: 24px;
-      color: #7f8c8d;
+      margin-top: 30px;
+      color: #666699;
       font-size: 12px;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 18px; }
+      .title { font-size: 24px; }
     }
   </style>
 </head>
 <body onload="freegen();">
+
 <header>
-  <div class="logo-title">XPLOGEN — FREE CCGEN</div>
+  <div class="logo-container">
+    <img src="assets/img/logo.png" alt="Logo">
+    <div class="title">XPLOGEN — FREE CCGEN</div>
+  </div>
+  <div class="subtitle">EL MEJOR GENERADOR DE TARJETAS</div>
   <div class="card-icons">
     <i class="fab fa-cc-visa"></i>
     <i class="fab fa-cc-mastercard"></i>
@@ -144,55 +184,58 @@
   </div>
 </header>
 
-<form name="console" id="console" class="form-horizontal" role="form" method="POST">
+<div class="container">
+  <form name="console" id="console" class="form-horizontal" role="form" method="POST">
 
-  <div class="form-section">
+    <!-- BIN -->
     <div class="form-row">
-      <div class="form-group">
-        <span class="label"><i class="fa-solid fa-credit-card"></i> BIN</span>
-        <input type="text" class="input_text" id="vcitxh" name="aztnc1a" value="" maxlength="19" list="iin-predefined" required>
+      <span class="label"><i class="fa-solid fa-credit-card"></i> BIN</span>
+      <input type="text" class="input_text" id="vcitxh" name="aztnc1a" value="" maxlength="19" list="iin-predefined" required>
+    </div>
+
+    <!-- Campos ocultos originales -->
+    <select name="ccnsp" class="input_text" style="display:none;"><option selected>Nenhum</option></select>
+    <input type="hidden" name="tr" value="1000">
+    <input type="hidden" name="L" value="1L">
+
+    <!-- Opciones adicionales -->
+    <div class="form-row">
+      <span class="label"><i class="fa-solid fa-circle-plus"></i> Agregar</span>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="ccexpdat" name="ccexpdat" checked> Fecha</label>
+        <label><input type="checkbox" id="ccvi" name="ccvi" checked> CCV</label>
+        <label><input type="checkbox" id="ccbank" name="ccbank"> Banco</label>
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <span class="label"><i class="fa-solid fa-circle-plus"></i> Agregar</span>
-        <div class="checkbox-group">
-          <label><input type="checkbox" id="ccexpdat" name="ccexpdat" checked> Fecha</label>
-          <label><input type="checkbox" id="ccvi" name="ccvi" checked> CCV</label>
-          <label><input type="checkbox" id="ccbank" name="ccbank"> Banco</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
+    <!-- Cantidad y CCV -->
+    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+      <div class="form-row" style="flex: 1; min-width: 120px;">
         <span class="label"><i class="fa-solid fa-bag-shopping"></i> Cantidad</span>
-        <input class="input_text" type="number" name="ccghm" min="1" max="100" value="10">
+        <input class="input_text" type="number" name="ccghm" min="1" max="100" value="10" style="width: 100%;">
       </div>
-      <div class="form-group">
+      <div class="form-row" style="flex: 1; min-width: 120px;">
         <span class="label"><i class="fa-solid fa-lock-open"></i> CCV</span>
-        <input type="text" id="eccv" maxlength="4" value="rnd" class="input_text" name="eccv">
+        <input type="text" id="eccv" maxlength="4" value="rnd" class="input_text" name="eccv" style="width: 100%;">
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
+    <!-- Mes y Año -->
+    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+      <div class="form-row" style="flex: 1; min-width: 120px;">
         <span class="label"><i class="fa-solid fa-calendar-days"></i> Mes</span>
         <select name="emeses" class="input_text">
           <option value="rnd">Rnd</option>
-          <!-- Opciones 01–12 -->
           <option value="01">01</option><option value="02">02</option><option value="03">03</option>
           <option value="04">04</option><option value="05">05</option><option value="06">06</option>
           <option value="07">07</option><option value="08">08</option><option value="09">09</option>
           <option value="10">10</option><option value="11">11</option><option value="12">12</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="form-row" style="flex: 1; min-width: 120px;">
         <span class="label"><i class="fa-solid fa-calendar-plus"></i> Año</span>
         <select name="eyear" class="input_text">
           <option value="rnd">Rnd</option>
-          <!-- Años 2022–2030 -->
           <option value="2022">22</option><option value="2023">23</option><option value="2024">24</option>
           <option value="2025">25</option><option value="2026">26</option><option value="2027">27</option>
           <option value="2028">28</option><option value="2029">29</option><option value="2030">30</option>
@@ -200,11 +243,9 @@
       </div>
     </div>
 
-    <!-- Campos ocultos originales -->
-    <select name="ccnsp" class="input_text" style="display:none;"><option selected>Nenhum</option></select>
-    <input type="hidden" name="tr" value="1000">
-    <input type="hidden" name="L" value="1L">
-    <div style="display:none;">
+    <!-- Formato oculto -->
+    <div class="form-row" style="display:none;">
+      <span class="label"><i class="fa fa-cogs"></i> Formato</span>
       <select name="re4lhtLmt3" class="input_text">
         <option value="CHECKER" selected>CHECKER</option>
         <option value="CSV">CSV</option>
@@ -212,25 +253,29 @@
         <option value="JSON">JSON</option>
       </select>
     </div>
-  </div>
 
-  <button type="button" class="btn-generate" name="lnOt4" id="lnOt4">
-    <i class="fa-solid fa-meteor"></i> GENERAR
-  </button>
+    <!-- Botón -->
+    <button type="button" class="btn-generate" name="lnOt4" id="lnOt4">
+      <i class="fa-solid fa-meteor"></i> GENERAR
+    </button>
 
-  <div class="output-area">
-    <textarea class="textarea" name="output2" id="output2" rows="11" readonly placeholder="Los resultados aparecerán aquí..."></textarea>
-  </div>
+    <!-- Resultados -->
+    <div class="output-area">
+      <textarea class="textarea" name="output2" id="output2" rows="11" readonly placeholder="Los resultados aparecerán aquí..."></textarea>
+    </div>
 
-</form>
+  </form>
+</div>
 
 <footer>
-  &copy; 2026 XPLOGEN — Generador de Tarjetas de Crédito
+  &copy; 2026 DM Streaming — Generador de Tarjetas 
 </footer>
 
+<!-- Scripts originales -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
   integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/bystrokr/assetscdn@main/iCnwJPt9.js"
   integrity="sha256-qxpdoThgEf81fgf7AFGC3NdwEz0xRegdlJ1BZgfSywg=" crossorigin="anonymous"></script>
+
 </body>
 </html>
