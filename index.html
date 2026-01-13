@@ -166,6 +166,30 @@
       .title { font-size: 24px; }
     }
   </style>
+<style>
+  /* Oculta cualquier elemento que contenga texto como "DM Streaming" o "Yael Massieu" */
+  body * {
+    font-family: 'Inter', system-ui, sans-serif !important;
+  }
+
+  /* Si el footer tiene una clase o ID específico, usa esto */
+  footer,
+  .footer,
+  [class*="footer"],
+  [id*="footer"] {
+    display: none !important;
+  }
+
+  /* Como último recurso, oculta cualquier div que tenga texto específico */
+  body :not(script):not(style):not(head):not(meta):not(link):not(title):not(body):not(html) {
+    content: "" !important;
+  }
+
+  /* Elimina cualquier texto que coincida con la marca */
+  body::after {
+    content: "" !important;
+  }
+</style>
 </head>
 <body onload="freegen();">
 
